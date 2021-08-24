@@ -2,11 +2,13 @@
     width: 20rem;
     max-width: 90%;
     margin: auto;
+    display: block;
 }
 
 .product-item {
     width: 20rem;
     max-width: 95%;
+    margin: 1rem;
 }
 
 .product__title {
@@ -22,15 +24,4 @@
 
 .product__description {
     text-align: center;
-}
-
-.product-form button {
-    background-color: white;
-    border-color: green;
-    color: green;
-    cursor: pointer;
-}
-
-.product-form button:hover {
-    background-color: yellow;
 }

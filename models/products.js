@@ -13,12 +13,16 @@ const getProductsFromFile = (callback) => {
 
 class Product {
 
-    constructor(title) {
+    constructor(title, imageURL, description, price) {
         this.title = title
+        this.imageURL = imageURL
+        this.description = description
+        this.price = price
     }
 
     save() {
         //Hàm đọc file của nodejs
+        this.id = Math.random().toString()
         getProductsFromFile((products) => {
             products.push(this)
             fs.writeFile(p, JSON.stringify(products), err => {
