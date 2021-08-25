@@ -1,4 +1,5 @@
 const Product = require('../models/products')
+const Cart = require('../models/cart')
 
 exports.getProducts = (req, res, next) => {
     //sendFile: gửi 1 file đến đường dẫn bên trong hàm, dirname: folder hiện tại
@@ -17,8 +18,13 @@ exports.getProducts = (req, res, next) => {
 exports.getProduct = (req, res, next) => {
     //sendFile: gửi 1 file đến đường dẫn bên trong hàm, dirname: folder hiện tại
     const productId = req.params.productId
-    console.log(productId)
-    res.redirect('/')
+    Product.findById(productId, (product) => {
+        res.render('shop/product-detail', {
+            prod: product,
+            pageTitle: product.title,
+            path: '/products'
+        })
+    })
 }
 
 
@@ -41,6 +47,15 @@ exports.getCart = (req, res, next) => {
         pageTitle: 'Your Cart'
     })
 }
+
+exports.postCart = (req, res, next) => {
+    const productId = req.body.productId
+    Product.findById(productId, (product) => {
+        Cart.addProduct(productId, product.price)
+    })
+    res.redirect('/cart')
+}
+
 
 exports.getCheckout = (req, res, next) => {
     res.render('shop/checkout', {
