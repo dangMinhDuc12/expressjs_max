@@ -13,6 +13,8 @@ router.get('/products', adminController.getProducts)
 
 router.get('/edit-product/:productId', adminController.getEditProduct)
 
-router.put('/edit-product/:productId', adminController.updateProduct)
+router.delete('/delete-product/:productId', adminController.deleteProduct)
+
+
 
 module.exports = router

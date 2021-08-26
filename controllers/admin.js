@@ -30,7 +30,7 @@ exports.getEditProduct = (req, res, next) => {
 
 exports.addProduct = (req, res, next) => {
     const { title, imageURL, description, price } = req.body
-    const products = new Product(title, imageURL, description, price)
+    const products = new Product(null, title, imageURL, description, price)
     products.save()
     res.redirect('/')
 }
@@ -49,6 +49,15 @@ exports.getProducts = (req, res, next) => {
 }
 
 exports.updateProduct = (req, res, next) => {
-    console.log(req.method)
+    const { productId } = req.params
+    const { title, imageURL, description, price } = req.body
+    const product = new Product(productId, title, imageURL, description, price)
+    product.save()
     res.redirect('/')
+}
+
+exports.deleteProduct = (req, res, next) => {
+    const { productId } = req.params
+    Product.deleteById(productId)
+    res.redirect('/admin/products')
 }
