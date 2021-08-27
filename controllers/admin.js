@@ -1,4 +1,4 @@
-const Product = require("../models/products");
+const Product = require("../models/productsSQL");
 exports.getAddProduct = (req, res, next) => {
     res.render('admin/edit-product', {
         pageTitle: 'Add Product',
@@ -28,10 +28,14 @@ exports.getEditProduct = (req, res, next) => {
 
 
 
-exports.addProduct = (req, res, next) => {
+exports.addProduct = async (req, res, next) => {
     const { title, imageURL, description, price } = req.body
-    const products = new Product(null, title, imageURL, description, price)
-    products.save()
+    await Product.create({
+        title,
+        imageURL,
+        description,
+        price
+    })
     res.redirect('/')
 }
 
