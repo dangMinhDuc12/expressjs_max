@@ -1,4 +1,4 @@
-const Product = require('../models/productsWithFile')
+const Product = require('../models/productsSQL')
 const Cart = require('../models/cart')
 
 exports.getProducts = async (req, res, next) => {
@@ -15,7 +15,7 @@ exports.getProducts = async (req, res, next) => {
     // })
 
     // SQL
-    const [products, fields] = await Product.fetchAll()
+    const products = await Product.findAll()
     res.render('shop/product-list', {
          prods: products,
          pageTitle: 'Shop',
@@ -38,10 +38,14 @@ exports.getProduct = async (req, res, next) => {
     // })
 
     //SQL
-    const [product, field] = await Product.findById(productId)
+    const product = await Product.findAll({
+        where: {
+            id: productId
+        }
+    })
     res.render('shop/product-detail', {
         prod: product[0],
-        pageTitle: product[0].title,
+        pageTitle: 'abc',
         path: '/products'
     })
 }
@@ -60,7 +64,7 @@ exports.getIndex = async (req, res, next) => {
     // })
 
     //SQL
-    const [products, fields] = await Product.fetchAll()
+    const products = await Product.findAll()
     res.render('shop/index', {
         prods: products,
         pageTitle: 'Shop',
