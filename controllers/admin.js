@@ -26,7 +26,14 @@ exports.getEditProduct = async (req, res, next) => {
     // })
 
     //SQL
-    const product = await Product.findAll({
+    // const product = await Product.findAll({
+    //     where: {
+    //         id: productId
+    //     }
+    // })
+
+    //Relationship
+    const product = await req.user.getProducts({
         where: {
             id: productId
         }
@@ -62,7 +69,10 @@ exports.addProduct = async (req, res, next) => {
 }
 
 exports.getProducts = async (req, res, next) => {
-    const products = await Product.findAll()
+    // const products = await Product.findAll()
+
+    //relationship
+    const products = await req.user.getProducts()
         res.render('admin/products', {
             prods: products,
             pageTitle: 'Admin Products',
